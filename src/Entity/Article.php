@@ -1,6 +1,9 @@
 <?php
 namespace App\Entity;
+
 use DateTime;
+use Doctrine\Common\Collection\ArrayCollection;
+
 /**
 * @Entity
 */
@@ -36,6 +39,18 @@ class Article {
 	*/
 	private $author;
 
+	/**
+	* @ManyToMany(targetEntity="Tag", inversedBy="articles", cascade={"persist"})
+	* @JoinTable(name="article_tags")
+	* @JoinColumn(referencedColumnName="id", nullable=false)
+	*/
+
+	private $tags;
+
+	public function __construct(){
+		$this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+
 	public function getId(){
 		return $this->id;
 	}
@@ -69,15 +84,12 @@ class Article {
 	public function getPublished(){
 		return $this->published;
 	}
-
 	public function setPublish(DateTime $value = null){
 		$this->published = $value;
 	}
-
 	public function getAuthor(){
 		return $this->author;
 	}
-
 	public function setAuthor($value){
 		$this->author = $value;
 	}
