@@ -1,10 +1,10 @@
-<!-- homepage -->
-<h1>Tag</h1>
+<h1>{{#tag}}{{getName}}{{/tag}}</h1>
 
 <div class="article-list">
-{{#tag}}
+
+{{#articles}}
 	<article>
-		<a href="/tag/{{getId}}">{{getName}}</a>
+		<a href="/article/{{getSlug}}"><img src="/images/{{getImage}}" alt=""></a><h2><a href="/article/{{getSlug}}">{{getName}}</a></h2>
 	</article>
-{{/tag}}
-</div>
+{{/articles}}
+</div> 

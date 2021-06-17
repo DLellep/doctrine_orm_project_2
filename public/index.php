@@ -1,24 +1,17 @@
 <?php
+use App\Service\DatabaseFactory;
 use App\Service\Templating;
 use DI\Container;
 use Slim\Factory\AppFactory;
-use App\Service\DatabaseFactory;
-
 require('../vendor/autoload.php');
-
 // register services
 $container = new Container();
-
 $container->set('db', function(){
-    return DatabaseFactory::create();
+	return DatabaseFactory::create();
 });
-
 $container->set('templating', function() {
-
-
     return new Templating;
 });
-
 AppFactory::setContainer($container);
 // initialise application
 $app = AppFactory::create();
@@ -29,6 +22,8 @@ $app->any('/admin/create', '\App\Controller\AdminController:create');
 $app->any('/admin/{id}', '\App\Controller\AdminController:edit');
 $app->get('/article/{slug}', '\App\Controller\ArticleController:view');
 $app->get('/author/{id}', '\App\Controller\AuthorController:author');
-$app->get('/tag', '\App\Controller\TagController:view');
+$app->get('/tags', '\App\Controller\TagController:view');
+$app->get('/tag/{id}', '\App\Controller\TagController:tag');
+
 // finish
 $app->run();
