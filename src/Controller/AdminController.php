@@ -46,6 +46,12 @@ class AdminController extends Controller
         }
 
         if($request->isPost()){
+            if($request->getParam('action') == 'delete') {
+                $this->ci->get('db')->remove($article);
+                $this->ci->get('db')->flush();
+                return $response->withRedirect('/admin');
+            }
+
             $article->setName($request->getParam('name'));
             $article->setSlug($request->getParam('slug'));
             $article->setImage($request->getParam('image'));
@@ -55,7 +61,6 @@ class AdminController extends Controller
             $this->ci->get('db')->persist($article);
             $this->ci->get('db')->flush();
         }
-
         return $this->renderPage($response, 'admin/edit.html', [
             'article' => $article
         ]);
