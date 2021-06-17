@@ -1,5 +1,4 @@
 <?php
-
 use App\Service\Templating;
 use DI\Container;
 use Slim\Factory\AppFactory;
@@ -15,19 +14,19 @@ $container->set('db', function(){
 });
 
 $container->set('templating', function() {
+
+
     return new Templating;
 });
 
 AppFactory::setContainer($container);
-
 // initialise application
 $app = AppFactory::create();
-
 // define page routes
 $app->get('/', '\App\Controller\DefaultController:homepage');
 $app->get('/admin', '\App\Controller\AdminController:view');
 $app->any('/admin/create', '\App\Controller\AdminController:create');
 $app->any('/admin/{id}', '\App\Controller\AdminController:edit');
-
+$app->get('/article/{slug}', '\App\Controller\ArticleController:view');
 // finish
 $app->run();
