@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collection\ArrayCollection;
 
 /**
 * @Entity
@@ -31,7 +31,7 @@ class Tag {
 	private $articles;
 
 	public function __construct(){
-		$this->articles = new ArrayCollection;
+		$this->articles = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 
 
