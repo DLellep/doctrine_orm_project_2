@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
@@ -16,14 +17,14 @@ class TagController extends Controller
 
         return $this->renderPage($response, 'tag.html', ['tag' => $tag, 'articles' => $tag->getArticles()]);
     }
-
-    public function view(Request $request, Response $response)
+     public function view(Request $request, Response $response)
     {
+
 
         $tags = $this->ci->get('db')->getRepository('App\Entity\Tag')->findBy([], []);
 
         return $this->renderPage($response, 'tags.html', [
             'tags' => $tags
         ]);
-    }
+    } 
 }
